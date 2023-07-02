@@ -1,0 +1,28 @@
+server:
+  http2:
+    enabled: true
+  ssl:
+    enabled: true
+    key-store: file:/Users/20967134/Documents/ssl/registration.p12
+    key-store-type: PKCS12
+    key-store-password: 123456
+    key-alias: registration-service
+    client-auth: none
+  port: 8090
+---
+spring:
+  application:
+    name: registration-service
+  profiles:
+    include:
+      - dev, prod, test
+    active: dev
+  cloud:
+    config:
+      uri: https://localhost:8086
+#      uri: http://localhost:8086
+      fail-fast: true
+      retry:
+        max-attempts: 20
+        max-interval: 15000
+        initial-interval: 10000
